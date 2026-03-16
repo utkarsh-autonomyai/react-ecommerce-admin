@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
+import { Link } from '@tanstack/react-router';
+
 import type { OrderDetailDto } from '@/api/generated/types.gen';
 import { MoneyDisplay } from '@/components/shared/money-display';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { ORDER_STATUS_MAP } from '@/components/shared/status-maps';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -221,7 +224,12 @@ export const OrderDetail = ({ order }: OrderDetailProps) => {
         </Card>
       )}
 
-      {/* Payment link will be added when payments module is built */}
+      {/* Payment Link */}
+      <div className='flex justify-end'>
+        <Button variant='outline' asChild>
+          <Link to='/payments'>View Payments</Link>
+        </Button>
+      </div>
     </div>
   );
 };
