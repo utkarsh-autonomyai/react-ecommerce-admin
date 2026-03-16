@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { ORDER_STATUS_MAP } from '@/components/shared/status-maps';
 import { columns } from '@/features/orders/components/orders-columns';
 
 const ORDER_STATUSES = [
@@ -102,7 +103,7 @@ function OrdersPage() {
             <SelectItem value='all'>All statuses</SelectItem>
             {ORDER_STATUSES.map((status) => (
               <SelectItem key={status} value={status}>
-                {status.charAt(0) + status.slice(1).toLowerCase()}
+                {ORDER_STATUS_MAP[status].label}
               </SelectItem>
             ))}
           </SelectContent>

@@ -10,6 +10,7 @@ import {
 import type { PaymentWithOrderDto } from '@/api/generated/types.gen';
 import { FormField } from '@/components/shared/form-field';
 import { MoneyDisplay } from '@/components/shared/money-display';
+import { formatMoney } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -51,7 +52,10 @@ export const RefundDialog = ({
           message: `Amount must be between 0.01 and ${maxRefundable.toFixed(2)}`,
         },
       ),
-    reason: z.string().optional(),
+    reason: z
+      .string()
+      .max(500, 'Reason must be 500 characters or less')
+      .optional(),
   });
 
   type RefundFormValues = z.infer<typeof refundSchema>;
@@ -111,7 +115,7 @@ export const RefundDialog = ({
           <FormField
             name='amount'
             label='Refund Amount'
-            description={`Leave empty for full refund (${maxRefundable.toFixed(2)} zl). Enter amount for partial refund.`}
+            description={`Leave empty for full refund (${formatMoney(maxRefundable)}). Enter amount for partial refund.`}
             error={errors.amount?.message}
           >
             <Input
@@ -133,6 +137,7 @@ export const RefundDialog = ({
               {...register('reason')}
               placeholder='Optional reason for refund...'
               rows={3}
+              maxLength={500}
             />
           </FormField>
 

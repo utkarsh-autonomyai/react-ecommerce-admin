@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { PAYMENT_STATUS_MAP } from '@/components/shared/status-maps';
 import { columns } from '@/features/payments/components/payments-columns';
 
 const PAYMENT_STATUSES = [
@@ -38,15 +39,6 @@ const PAYMENT_STATUSES = [
   'REFUNDED',
   'PARTIALLY_REFUNDED',
 ] as const;
-
-const PAYMENT_STATUS_LABELS: Record<string, string> = {
-  PENDING: 'Pending',
-  SUCCEEDED: 'Succeeded',
-  FAILED: 'Failed',
-  REFUND_PENDING: 'Refund Pending',
-  REFUNDED: 'Refunded',
-  PARTIALLY_REFUNDED: 'Partially Refunded',
-};
 
 const paymentsSearchSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -139,7 +131,7 @@ function PaymentsPage() {
             <SelectItem value='all'>All statuses</SelectItem>
             {PAYMENT_STATUSES.map((status) => (
               <SelectItem key={status} value={status}>
-                {PAYMENT_STATUS_LABELS[status]}
+                {PAYMENT_STATUS_MAP[status].label}
               </SelectItem>
             ))}
           </SelectContent>

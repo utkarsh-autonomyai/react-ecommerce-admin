@@ -48,7 +48,10 @@ const ALL_STATUSES = [
 
 const statusUpdateSchema = z.object({
   status: z.enum(ALL_STATUSES),
-  adminNotes: z.string().optional(),
+  adminNotes: z
+    .string()
+    .max(1000, 'Admin notes must be 1000 characters or less')
+    .optional(),
 });
 
 type StatusUpdateFormValues = z.infer<typeof statusUpdateSchema>;
@@ -163,6 +166,7 @@ export const StatusUpdateForm = ({ order }: StatusUpdateFormProps) => {
               {...register('adminNotes')}
               placeholder='Optional notes about this status change...'
               rows={3}
+              maxLength={1000}
             />
           </FormField>
 
