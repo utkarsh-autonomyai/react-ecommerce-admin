@@ -119,6 +119,121 @@ export const mockAllApis = async (page: Page): Promise<void> => {
   });
 };
 
+// --- Mock product data for product CRUD tests ---
+
+const MOCK_CATEGORY = {
+  id: 'cat-001',
+  name: 'Electronics',
+  slug: 'electronics',
+  description: 'Electronic devices',
+  isActive: true,
+  sortOrder: 0,
+  parentId: null,
+  image: null,
+  createdAt: '2025-01-01T00:00:00.000Z',
+  updatedAt: '2025-01-01T00:00:00.000Z',
+};
+
+const MOCK_PRODUCT = {
+  id: 'product-001',
+  name: 'Wireless Headphones',
+  slug: 'wireless-headphones',
+  description: 'Premium wireless headphones with noise cancellation',
+  price: '199.99',
+  comparePrice: '249.99',
+  sku: 'WH-001',
+  stock: 50,
+  categoryId: 'cat-001',
+  category: MOCK_CATEGORY,
+  isActive: true,
+  isFeatured: false,
+  images: [],
+  createdAt: '2025-06-01T10:00:00.000Z',
+  updatedAt: '2025-06-01T10:00:00.000Z',
+};
+
+// Adds product-specific route overrides
+export const mockProductsApi = async (page: Page): Promise<void> => {
+  await mockAllApis(page);
+
+  // GET /categories — return mock categories (for form dropdown)
+  await page.route(`${API_BASE}/categories?**`, async (route) => {
+    if (route.request().method() !== 'GET') return route.fallback();
+
+    return route.fulfill(
+      jsonResponse({
+        success: true,
+        data: [MOCK_CATEGORY],
+        meta: { total: 1, page: 1, limit: 100, totalPages: 1 },
+        timestamp: new Date().toISOString(),
+      }),
+    );
+  });
+
+  // GET /products — return mock products list
+  await page.route(`${API_BASE}/products?**`, async (route) => {
+    if (route.request().method() !== 'GET') return route.fallback();
+
+    return route.fulfill(
+      jsonResponse({
+        success: true,
+        data: [MOCK_PRODUCT],
+        meta: { total: 1, page: 1, limit: 10, totalPages: 1 },
+        timestamp: new Date().toISOString(),
+      }),
+    );
+  });
+
+  // GET /products/:slug — return mock product detail
+  await page.route(`${API_BASE}/products/*`, async (route) => {
+    const request = route.request();
+    if (request.method() !== 'GET') return route.fallback();
+    const url = new URL(request.url());
+    if (url.search) return route.fallback();
+
+    return route.fulfill(jsonResponse(apiResponse(MOCK_PRODUCT)));
+  });
+
+  // POST /products — create product
+  await page.route(`${API_BASE}/products`, async (route) => {
+    if (route.request().method() !== 'POST') return route.fallback();
+
+    return route.fulfill(
+      jsonResponse(
+        apiResponse({
+          ...MOCK_PRODUCT,
+          id: 'product-new',
+          name: 'Test Product',
+          slug: 'test-product',
+        }),
+      ),
+    );
+  });
+
+  // PATCH /products/:id — update product
+  await page.route(`${API_BASE}/products/*`, async (route) => {
+    if (route.request().method() !== 'PATCH') return route.fallback();
+
+    return route.fulfill(jsonResponse(apiResponse(MOCK_PRODUCT)));
+  });
+
+  // POST /products/:id/deactivate — deactivate product
+  await page.route(`${API_BASE}/products/*/deactivate`, async (route) => {
+    if (route.request().method() !== 'POST') return route.fallback();
+
+    return route.fulfill(
+      jsonResponse(apiResponse({ ...MOCK_PRODUCT, isActive: false })),
+    );
+  });
+
+  // DELETE /products/:id — delete product
+  await page.route(`${API_BASE}/products/*`, async (route) => {
+    if (route.request().method() !== 'DELETE') return route.fallback();
+
+    return route.fulfill(jsonResponse(apiResponse(null)));
+  });
+};
+
 // --- Mock order data for order status workflow tests ---
 
 const MOCK_ORDER_LIST_ITEM = {
