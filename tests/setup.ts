@@ -9,15 +9,14 @@ vi.mock('@/config/env', () => ({
   },
 }));
 
-// Import after mock so the client configures with mocked env
-import('@/api/client');
-
 import { server } from './mocks/server';
 import { useAuthStore } from '@/stores/auth.store';
 import { useThemeStore } from '@/stores/theme.store';
 
-// Start MSW server before all tests
-beforeAll(() => {
+// Start MSW server and configure API client before all tests
+beforeAll(async () => {
+  // Import client after env mock so it configures with correct base URL
+  await import('@/api/client');
   server.listen({ onUnhandledRequest: 'error' });
 });
 

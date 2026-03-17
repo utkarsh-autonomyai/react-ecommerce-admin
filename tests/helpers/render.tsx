@@ -2,11 +2,6 @@ import { render, type RenderOptions } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactElement, ReactNode } from 'react';
 
-type ProvidersProps = {
-  children: ReactNode;
-  queryClient?: QueryClient;
-};
-
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
@@ -20,11 +15,6 @@ const createTestQueryClient = () =>
     },
   });
 
-const TestProviders = ({ children, queryClient }: ProvidersProps) => {
-  const client = queryClient ?? createTestQueryClient();
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
-};
-
 type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & {
   queryClient?: QueryClient;
 };
@@ -34,10 +24,12 @@ export const renderWithProviders = (
   options?: CustomRenderOptions,
 ) => {
   const { queryClient, ...renderOptions } = options ?? {};
+  // Create once per call so re-renders don't reset the client
+  const testClient = queryClient ?? createTestQueryClient();
 
   return render(ui, {
     wrapper: ({ children }: { children: ReactNode }) => (
-      <TestProviders queryClient={queryClient}>{children}</TestProviders>
+      <QueryClientProvider client={testClient}>{children}</QueryClientProvider>
     ),
     ...renderOptions,
   });
