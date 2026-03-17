@@ -3,23 +3,11 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 
 import { shippingControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { DataTable } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import { columns } from '@/features/shipping/components/shipping-columns';
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
 
 export const Route = createFileRoute('/_authenticated/shipping/')({
   component: ShippingPage,
@@ -28,11 +16,7 @@ export const Route = createFileRoute('/_authenticated/shipping/')({
 function ShippingPage() {
   const { data, isLoading } = useQuery(shippingControllerFindAllOptions());
 
-  const table = useReactTable({
-    data: data?.data ?? [],
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  const items = data?.data ?? [];
 
   return (
     <div className='space-y-6'>
@@ -55,51 +39,21 @@ function ShippingPage() {
           ))}
         </div>
       ) : (
-        <div className='rounded-md border'>
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className='h-24 text-center'
-                  >
-                    No shipping methods found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
+        <DataTable
+          columns={columns}
+          data={items}
+          meta={{
+            total: items.length,
+            page: 1,
+            limit: items.length || 1,
+            totalPages: 1,
+            hasNextPage: false,
+            hasPrevPage: false,
+          }}
+          state={{ page: 1, limit: items.length || 1 }}
+          onStateChange={() => {}}
+          emptyMessage='No shipping methods found.'
+        />
       )}
     </div>
   );
