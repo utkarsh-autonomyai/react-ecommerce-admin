@@ -119,6 +119,100 @@ export const mockAllApis = async (page: Page): Promise<void> => {
   });
 };
 
+// --- Mock order data for order status workflow tests ---
+
+const MOCK_ORDER_LIST_ITEM = {
+  id: 'order-001',
+  orderNumber: 'ORD-20250601-001',
+  status: 'PENDING' as const,
+  subtotal: '199.99',
+  discountAmount: '0.00',
+  couponCode: null,
+  shippingCost: '9.99',
+  tax: '41.99',
+  total: '251.97',
+  createdAt: '2025-06-01T12:00:00.000Z',
+  updatedAt: '2025-06-01T12:00:00.000Z',
+};
+
+const MOCK_ORDER_DETAIL = {
+  ...MOCK_ORDER_LIST_ITEM,
+  userId: 'user-001',
+  shippingFullName: 'John Doe',
+  shippingPhone: '+48 123 456 789',
+  shippingStreet: '123 Main Street',
+  shippingCity: 'Warsaw',
+  shippingRegion: 'Mazovia',
+  shippingPostalCode: '00-001',
+  shippingCountry: 'Poland',
+  shippingMethodName: 'Standard Shipping',
+  notes: null,
+  adminNotes: null,
+  items: [
+    {
+      id: 'item-001',
+      productName: 'Wireless Headphones',
+      productSlug: 'wireless-headphones',
+      sku: 'WH-001',
+      unitPrice: '199.99',
+      quantity: 1,
+      lineTotal: '199.99',
+      productImage: null,
+    },
+  ],
+};
+
+export const MOCK_ORDERS = [MOCK_ORDER_LIST_ITEM];
+
+// Adds order-specific route overrides
+export const mockOrdersApi = async (page: Page): Promise<void> => {
+  await mockAllApis(page);
+
+  // GET /orders — return mock orders list
+  await page.route(`${API_BASE}/orders?**`, async (route) => {
+    if (route.request().method() !== 'GET') return route.fallback();
+
+    return route.fulfill(
+      jsonResponse({
+        success: true,
+        data: MOCK_ORDERS,
+        meta: { total: MOCK_ORDERS.length, page: 1, limit: 10, totalPages: 1 },
+        timestamp: new Date().toISOString(),
+      }),
+    );
+  });
+
+  // GET /orders/:id — return mock order detail
+  await page.route(`${API_BASE}/orders/*`, async (route) => {
+    const request = route.request();
+    if (request.method() !== 'GET') return route.fallback();
+
+    // Don't intercept /orders?query — only /orders/{id}
+    const url = new URL(request.url());
+    if (url.search) return route.fallback();
+
+    return route.fulfill(jsonResponse(apiResponse(MOCK_ORDER_DETAIL)));
+  });
+
+  // PATCH /orders/:id/status — return updated order
+  await page.route(`${API_BASE}/orders/*/status`, async (route) => {
+    if (route.request().method() !== 'PATCH') return route.fallback();
+
+    const body = route.request().postDataJSON();
+
+    return route.fulfill(
+      jsonResponse(
+        apiResponse({
+          ...MOCK_ORDER_DETAIL,
+          status: body.status,
+          adminNotes: body.adminNotes ?? null,
+          updatedAt: new Date().toISOString(),
+        }),
+      ),
+    );
+  });
+};
+
 // --- Mock review data for review moderation tests ---
 
 const MOCK_PENDING_REVIEW = {
