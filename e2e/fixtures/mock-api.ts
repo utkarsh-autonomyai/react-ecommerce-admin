@@ -1,8 +1,5 @@
 import type { Page } from '@playwright/test';
 
-// Base URL for API requests (matches VITE_API_URL)
-const API_BASE = 'http://localhost:3000';
-
 // Mock admin user profile
 export const MOCK_ADMIN_USER = {
   id: '00000000-0000-0000-0000-000000000001',
