@@ -98,6 +98,46 @@ const COUPON_STATUS_MAP: Record<string, StatusConfig> = {
   EXPIRED: { label: 'Expired', variant: 'destructive' },
 } as const;
 
+const NOTIFICATION_TYPE_MAP: Record<string, StatusConfig> = {
+  ORDER_CREATED: {
+    label: 'Order Created',
+    variant: 'outline',
+    className: 'border-blue-500 text-blue-600',
+  },
+  ORDER_CONFIRMED: {
+    label: 'Order Confirmed',
+    variant: 'outline',
+    className: 'border-blue-500 text-blue-600',
+  },
+  ORDER_SHIPPED: {
+    label: 'Order Shipped',
+    variant: 'outline',
+    className: 'border-indigo-500 text-indigo-600',
+  },
+  ORDER_DELIVERED: { label: 'Order Delivered', variant: 'default' },
+  ORDER_CANCELLED: { label: 'Order Cancelled', variant: 'destructive' },
+  PAYMENT_SUCCEEDED: { label: 'Payment Succeeded', variant: 'default' },
+  PAYMENT_FAILED: { label: 'Payment Failed', variant: 'destructive' },
+  REFUND_INITIATED: {
+    label: 'Refund Initiated',
+    variant: 'outline',
+    className: 'border-amber-500 text-amber-600',
+  },
+  REFUND_COMPLETED: {
+    label: 'Refund Completed',
+    variant: 'outline',
+    className: 'border-green-500 text-green-600',
+  },
+  REFUND_FAILED: { label: 'Refund Failed', variant: 'destructive' },
+  LOW_STOCK: {
+    label: 'Low Stock',
+    variant: 'outline',
+    className: 'border-amber-500 text-amber-600',
+  },
+  WELCOME: { label: 'Welcome', variant: 'secondary' },
+  PASSWORD_CHANGED: { label: 'Password Changed', variant: 'secondary' },
+} as const;
+
 export {
   ORDER_STATUS_MAP,
   PAYMENT_STATUS_MAP,
@@ -105,4 +145,5 @@ export {
   COUPON_TYPE_MAP,
   STOCK_MOVEMENT_TYPE_MAP,
   COUPON_STATUS_MAP,
+  NOTIFICATION_TYPE_MAP,
 };
