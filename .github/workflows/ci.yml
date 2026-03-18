@@ -67,6 +67,8 @@ jobs:
           node-version-file: '.node-version'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - run: pnpm dlx @tanstack/router-cli@1.166.7 generate
+      - run: pnpm api:generate
       - run: pnpm test
 
   bundle-size:
