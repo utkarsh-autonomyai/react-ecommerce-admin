@@ -5,6 +5,7 @@ import { NotFound } from './components/shared/not-found';
 const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  defaultPreloadStaleTime: 30_000,
   defaultNotFoundComponent: NotFound,
 });
 
