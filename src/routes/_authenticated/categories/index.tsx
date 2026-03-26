@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 import { z } from 'zod';
 
-import { categoriesControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { categoriesControllerFindAllAdminOptions } from '@/api/generated/@tanstack/react-query.gen';
 import {
   DataTable,
   DataTablePagination,
@@ -30,7 +30,7 @@ function CategoriesPage() {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
-    ...categoriesControllerFindAllOptions({
+    ...categoriesControllerFindAllAdminOptions({
       query: {
         page: String(search.page),
         limit: String(search.limit),

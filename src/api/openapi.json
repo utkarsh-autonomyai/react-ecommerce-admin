@@ -4889,8 +4889,11 @@
             "name": "isActive",
             "required": false,
             "in": "query",
-            "description": "Filter by active status (\"true\", \"false\", or \"all\"). Default: \"true\"",
-            "schema": { "default": "true", "type": "string" }
+            "schema": {
+              "default": "true",
+              "type": "string",
+              "enum": ["true", "false", "all"]
+            }
           }
         ],
         "responses": {
@@ -4920,7 +4923,7 @@
             }
           }
         },
-        "summary": "List categories with optional isActive filter",
+        "summary": "List all active categories (public)",
         "tags": ["Categories"]
       },
       "post": {
@@ -5030,6 +5033,100 @@
           }
         },
         "summary": "Get category tree hierarchy (public)",
+        "tags": ["Categories"]
+      }
+    },
+    "/categories/manage": {
+      "get": {
+        "operationId": "CategoriesController_findAllAdmin",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status. Default: \"true\"",
+            "schema": { "enum": ["true", "false", "all"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated category list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CategoryResponseDto"
+                      }
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" },
+                    "timestamp": {
+                      "type": "string",
+                      "example": "2025-01-15T12:00:00.000Z"
+                    }
+                  },
+                  "required": ["success", "data", "meta", "timestamp"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — Missing or invalid JWT",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden — Insufficient role",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          }
+        },
+        "security": [{ "access-token": [] }],
+        "summary": "List categories with isActive filter (admin)",
         "tags": ["Categories"]
       }
     },
@@ -5463,8 +5560,11 @@
             "name": "isActive",
             "required": false,
             "in": "query",
-            "description": "Filter by active status (\"true\", \"false\", or \"all\"). Default: \"true\"",
-            "schema": { "default": "true", "type": "string" }
+            "schema": {
+              "default": "true",
+              "type": "string",
+              "enum": ["true", "false", "all"]
+            }
           }
         ],
         "responses": {
@@ -5563,6 +5663,130 @@
         },
         "security": [{ "access-token": [] }],
         "summary": "Create a new product (admin)",
+        "tags": ["Products"]
+      }
+    },
+    "/products/manage": {
+      "get": {
+        "operationId": "ProductsController_findAllAdmin",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "categoryId",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": { "maxLength": 100, "type": "string" }
+          },
+          {
+            "name": "minPrice",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "maxPrice",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "isFeatured",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status. Default: \"true\"",
+            "schema": { "enum": ["true", "false", "all"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated product list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductListItemDto"
+                      }
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" },
+                    "timestamp": {
+                      "type": "string",
+                      "example": "2025-01-15T12:00:00.000Z"
+                    }
+                  },
+                  "required": ["success", "data", "meta", "timestamp"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — Missing or invalid JWT",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden — Insufficient role",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          }
+        },
+        "security": [{ "access-token": [] }],
+        "summary": "List products with isActive filter (admin)",
         "tags": ["Products"]
       }
     },

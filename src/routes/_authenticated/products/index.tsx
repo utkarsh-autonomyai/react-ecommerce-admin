@@ -4,8 +4,8 @@ import { Plus } from 'lucide-react';
 import { z } from 'zod';
 
 import {
-  categoriesControllerFindAllOptions,
-  productsControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
+  productsControllerFindAllAdminOptions,
 } from '@/api/generated/@tanstack/react-query.gen';
 import {
   DataTable,
@@ -43,10 +43,10 @@ function ProductsPage() {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
-    ...productsControllerFindAllOptions({
+    ...productsControllerFindAllAdminOptions({
       query: {
-        page: search.page,
-        limit: search.limit,
+        page: String(search.page),
+        limit: String(search.limit),
         sortBy: search.sortBy,
         sortOrder: search.sortOrder,
         categoryId: search.categoryId,
@@ -58,7 +58,7 @@ function ProductsPage() {
   });
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
+    ...categoriesControllerFindAllAdminOptions({
       query: { limit: '100', isActive: 'all' },
     }),
   });

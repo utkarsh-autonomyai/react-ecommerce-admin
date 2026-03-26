@@ -6,7 +6,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { Trash2 } from 'lucide-react';
 
 import {
-  categoriesControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
   productsControllerCreateMutation,
   productsControllerFindAllQueryKey,
   productsControllerFindBySlugQueryKey,
@@ -64,7 +64,7 @@ export const ProductForm = ({ product }: ProductFormProps) => {
   const isEditing = Boolean(product);
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
+    ...categoriesControllerFindAllAdminOptions({
       query: { limit: '100', isActive: 'all' },
     }),
   });

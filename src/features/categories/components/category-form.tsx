@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router';
 import {
   categoriesControllerCreateMutation,
   categoriesControllerFindAllQueryKey,
-  categoriesControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
   categoriesControllerFindBySlugQueryKey,
   categoriesControllerUpdateMutation,
   categoriesControllerUploadImageMutation,
@@ -52,7 +52,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
   const isEditing = Boolean(category);
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
+    ...categoriesControllerFindAllAdminOptions({
       query: { limit: '100', isActive: 'all' },
     }),
   });
