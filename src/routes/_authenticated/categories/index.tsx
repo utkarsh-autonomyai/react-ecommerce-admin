@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 import { z } from 'zod';
 
-import { categoriesControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { categoriesControllerFindAllAdminOptions } from '@/api/generated/@tanstack/react-query.gen';
 import {
   DataTable,
   DataTablePagination,
@@ -12,6 +12,7 @@ import {
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { columns } from '@/features/categories/components/categories-columns';
+import { ADMIN_IS_ACTIVE_FILTER } from '@/lib/constants';
 
 const categoriesSearchSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -30,12 +31,13 @@ function CategoriesPage() {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
-    ...categoriesControllerFindAllOptions({
+    ...categoriesControllerFindAllAdminOptions({
       query: {
         page: String(search.page),
         limit: String(search.limit),
         sortBy: search.sortBy,
         sortOrder: search.sortOrder,
+        isActive: ADMIN_IS_ACTIVE_FILTER,
       },
     }),
     placeholderData: keepPreviousData,

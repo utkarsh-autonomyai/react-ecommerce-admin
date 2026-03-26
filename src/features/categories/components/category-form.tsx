@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router';
 import {
   categoriesControllerCreateMutation,
   categoriesControllerFindAllQueryKey,
-  categoriesControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
   categoriesControllerFindBySlugQueryKey,
   categoriesControllerUpdateMutation,
   categoriesControllerUploadImageMutation,
@@ -28,6 +28,7 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { generateSlug, slugSchema } from '@/lib/utils';
+import { ADMIN_IS_ACTIVE_FILTER, ADMIN_DROPDOWN_LIMIT } from '@/lib/constants';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -52,8 +53,8 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
   const isEditing = Boolean(category);
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
-      query: { limit: '100' },
+    ...categoriesControllerFindAllAdminOptions({
+      query: { limit: ADMIN_DROPDOWN_LIMIT, isActive: ADMIN_IS_ACTIVE_FILTER },
     }),
   });
 

@@ -6,7 +6,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { Trash2 } from 'lucide-react';
 
 import {
-  categoriesControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
   productsControllerCreateMutation,
   productsControllerFindAllQueryKey,
   productsControllerFindBySlugQueryKey,
@@ -30,6 +30,7 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { generateSlug, slugSchema, priceSchema } from '@/lib/utils';
+import { ADMIN_IS_ACTIVE_FILTER, ADMIN_DROPDOWN_LIMIT } from '@/lib/constants';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -64,8 +65,8 @@ export const ProductForm = ({ product }: ProductFormProps) => {
   const isEditing = Boolean(product);
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
-      query: { limit: '100' },
+    ...categoriesControllerFindAllAdminOptions({
+      query: { limit: ADMIN_DROPDOWN_LIMIT, isActive: ADMIN_IS_ACTIVE_FILTER },
     }),
   });
 

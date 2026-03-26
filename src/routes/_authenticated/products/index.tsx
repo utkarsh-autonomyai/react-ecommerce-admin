@@ -4,8 +4,8 @@ import { Plus } from 'lucide-react';
 import { z } from 'zod';
 
 import {
-  categoriesControllerFindAllOptions,
-  productsControllerFindAllOptions,
+  categoriesControllerFindAllAdminOptions,
+  productsControllerFindAllAdminOptions,
 } from '@/api/generated/@tanstack/react-query.gen';
 import {
   DataTable,
@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { columns } from '@/features/products/components/products-columns';
+import { ADMIN_IS_ACTIVE_FILTER, ADMIN_DROPDOWN_LIMIT } from '@/lib/constants';
 
 const productsSearchSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -43,22 +44,23 @@ function ProductsPage() {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
-    ...productsControllerFindAllOptions({
+    ...productsControllerFindAllAdminOptions({
       query: {
-        page: search.page,
-        limit: search.limit,
+        page: String(search.page),
+        limit: String(search.limit),
         sortBy: search.sortBy,
         sortOrder: search.sortOrder,
         categoryId: search.categoryId,
         search: search.search,
+        isActive: ADMIN_IS_ACTIVE_FILTER,
       },
     }),
     placeholderData: keepPreviousData,
   });
 
   const { data: categoriesData } = useQuery({
-    ...categoriesControllerFindAllOptions({
-      query: { limit: '100' },
+    ...categoriesControllerFindAllAdminOptions({
+      query: { limit: ADMIN_DROPDOWN_LIMIT, isActive: ADMIN_IS_ACTIVE_FILTER },
     }),
   });
 
