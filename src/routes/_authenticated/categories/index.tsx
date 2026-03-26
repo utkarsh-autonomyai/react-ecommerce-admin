@@ -12,6 +12,7 @@ import {
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { columns } from '@/features/categories/components/categories-columns';
+import { ADMIN_IS_ACTIVE_FILTER } from '@/lib/constants';
 
 const categoriesSearchSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -36,7 +37,7 @@ function CategoriesPage() {
         limit: String(search.limit),
         sortBy: search.sortBy,
         sortOrder: search.sortOrder,
-        isActive: 'all',
+        isActive: ADMIN_IS_ACTIVE_FILTER,
       },
     }),
     placeholderData: keepPreviousData,

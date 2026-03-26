@@ -28,6 +28,7 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { generateSlug, slugSchema } from '@/lib/utils';
+import { ADMIN_IS_ACTIVE_FILTER, ADMIN_DROPDOWN_LIMIT } from '@/lib/constants';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
@@ -53,7 +54,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
 
   const { data: categoriesData } = useQuery({
     ...categoriesControllerFindAllAdminOptions({
-      query: { limit: '100', isActive: 'all' },
+      query: { limit: ADMIN_DROPDOWN_LIMIT, isActive: ADMIN_IS_ACTIVE_FILTER },
     }),
   });
 

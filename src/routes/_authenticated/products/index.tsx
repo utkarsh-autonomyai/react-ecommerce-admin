@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { columns } from '@/features/products/components/products-columns';
+import { ADMIN_IS_ACTIVE_FILTER, ADMIN_DROPDOWN_LIMIT } from '@/lib/constants';
 
 const productsSearchSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -51,7 +52,7 @@ function ProductsPage() {
         sortOrder: search.sortOrder,
         categoryId: search.categoryId,
         search: search.search,
-        isActive: 'all',
+        isActive: ADMIN_IS_ACTIVE_FILTER,
       },
     }),
     placeholderData: keepPreviousData,
@@ -59,7 +60,7 @@ function ProductsPage() {
 
   const { data: categoriesData } = useQuery({
     ...categoriesControllerFindAllAdminOptions({
-      query: { limit: '100', isActive: 'all' },
+      query: { limit: ADMIN_DROPDOWN_LIMIT, isActive: ADMIN_IS_ACTIVE_FILTER },
     }),
   });
 
