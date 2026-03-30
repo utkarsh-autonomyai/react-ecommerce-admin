@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/": {
+    "/api/v1": {
       "get": {
         "operationId": "AppController_getHello",
         "parameters": [],
@@ -9,7 +9,7 @@
         "tags": ["App"]
       }
     },
-    "/payments/create-intent": {
+    "/api/v1/payments/create-intent": {
       "post": {
         "operationId": "PaymentsController_createPaymentIntent",
         "parameters": [],
@@ -83,7 +83,7 @@
         "tags": ["Payments"]
       }
     },
-    "/payments/order/{orderId}": {
+    "/api/v1/payments/order/{orderId}": {
       "get": {
         "operationId": "PaymentsController_getPaymentByOrderId",
         "parameters": [
@@ -147,7 +147,7 @@
         "tags": ["Payments"]
       }
     },
-    "/payments/webhook": {
+    "/api/v1/payments/webhook": {
       "post": {
         "operationId": "PaymentsController_handleWebhook",
         "parameters": [
@@ -193,7 +193,7 @@
         "tags": ["Payments"]
       }
     },
-    "/payments": {
+    "/api/v1/payments": {
       "get": {
         "operationId": "PaymentsController_getAllPayments",
         "parameters": [
@@ -304,7 +304,7 @@
         "tags": ["Payments"]
       }
     },
-    "/payments/{paymentId}/refund": {
+    "/api/v1/payments/{paymentId}/refund": {
       "post": {
         "operationId": "PaymentsController_refund",
         "parameters": [
@@ -390,7 +390,7 @@
         "tags": ["Payments"]
       }
     },
-    "/payments/expire-abandoned": {
+    "/api/v1/payments/expire-abandoned": {
       "post": {
         "operationId": "PaymentsController_expireAbandonedPayments",
         "parameters": [],
@@ -446,7 +446,7 @@
         "tags": ["Payments"]
       }
     },
-    "/orders/checkout": {
+    "/api/v1/orders/checkout": {
       "post": {
         "operationId": "OrdersController_checkout",
         "parameters": [],
@@ -516,7 +516,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/my": {
+    "/api/v1/orders/my": {
       "get": {
         "operationId": "OrdersController_getMyOrders",
         "parameters": [
@@ -640,7 +640,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/my/{id}": {
+    "/api/v1/orders/my/{id}": {
       "get": {
         "operationId": "OrdersController_getMyOrderById",
         "parameters": [
@@ -702,7 +702,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/my/{id}/cancel": {
+    "/api/v1/orders/my/{id}/cancel": {
       "post": {
         "operationId": "OrdersController_cancelOrder",
         "parameters": [
@@ -772,7 +772,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/my/{id}/request-refund": {
+    "/api/v1/orders/my/{id}/request-refund": {
       "post": {
         "operationId": "OrdersController_requestRefund",
         "parameters": [
@@ -852,7 +852,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/my/{id}/refund-request": {
+    "/api/v1/orders/my/{id}/refund-request": {
       "get": {
         "operationId": "OrdersController_getRefundRequest",
         "parameters": [
@@ -916,7 +916,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders": {
+    "/api/v1/orders": {
       "get": {
         "operationId": "OrdersController_getAllOrders",
         "parameters": [
@@ -1048,7 +1048,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/{id}": {
+    "/api/v1/orders/{id}": {
       "get": {
         "operationId": "OrdersController_getOrderById",
         "parameters": [
@@ -1118,7 +1118,7 @@
         "tags": ["Orders"]
       }
     },
-    "/orders/{id}/status": {
+    "/api/v1/orders/{id}/status": {
       "patch": {
         "operationId": "OrdersController_updateOrderStatus",
         "parameters": [
@@ -1204,7 +1204,7 @@
         "tags": ["Orders"]
       }
     },
-    "/coupons/validate": {
+    "/api/v1/coupons/validate": {
       "post": {
         "operationId": "CouponsController_validateCoupon",
         "parameters": [],
@@ -1291,7 +1291,7 @@
         "tags": ["Coupons"]
       }
     },
-    "/coupons": {
+    "/api/v1/coupons": {
       "post": {
         "operationId": "CouponsController_create",
         "parameters": [],
@@ -1476,7 +1476,7 @@
         "tags": ["Coupons"]
       }
     },
-    "/coupons/{id}": {
+    "/api/v1/coupons/{id}": {
       "get": {
         "operationId": "CouponsController_findById",
         "parameters": [
@@ -1700,7 +1700,7 @@
         "tags": ["Coupons"]
       }
     },
-    "/coupons/{id}/deactivate": {
+    "/api/v1/coupons/{id}/deactivate": {
       "post": {
         "operationId": "CouponsController_deactivate",
         "parameters": [
@@ -1780,7 +1780,7 @@
         "tags": ["Coupons"]
       }
     },
-    "/shipping/methods": {
+    "/api/v1/shipping/methods": {
       "get": {
         "operationId": "ShippingController_findActive",
         "parameters": [],
@@ -1894,7 +1894,7 @@
         "tags": ["Shipping"]
       }
     },
-    "/shipping/methods/all": {
+    "/api/v1/shipping/methods/all": {
       "get": {
         "operationId": "ShippingController_findAll",
         "parameters": [],
@@ -1953,7 +1953,7 @@
         "tags": ["Shipping"]
       }
     },
-    "/shipping/methods/{id}": {
+    "/api/v1/shipping/methods/{id}": {
       "get": {
         "operationId": "ShippingController_findById",
         "parameters": [
@@ -2183,7 +2183,7 @@
         "tags": ["Shipping"]
       }
     },
-    "/shipping/methods/{id}/deactivate": {
+    "/api/v1/shipping/methods/{id}/deactivate": {
       "post": {
         "operationId": "ShippingController_deactivate",
         "parameters": [
@@ -2263,7 +2263,7 @@
         "tags": ["Shipping"]
       }
     },
-    "/tax/rates": {
+    "/api/v1/tax/rates": {
       "post": {
         "operationId": "TaxController_create",
         "parameters": [],
@@ -2392,7 +2392,7 @@
         "tags": ["Tax"]
       }
     },
-    "/tax/rates/{id}": {
+    "/api/v1/tax/rates/{id}": {
       "get": {
         "operationId": "TaxController_findOne",
         "parameters": [
@@ -2620,7 +2620,7 @@
         "tags": ["Tax"]
       }
     },
-    "/auth/register": {
+    "/api/v1/auth/register": {
       "post": {
         "operationId": "AuthController_register",
         "parameters": [],
@@ -2681,7 +2681,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/login": {
+    "/api/v1/auth/login": {
       "post": {
         "operationId": "AuthController_login",
         "parameters": [
@@ -2750,7 +2750,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/refresh": {
+    "/api/v1/auth/refresh": {
       "post": {
         "operationId": "AuthController_refresh",
         "parameters": [],
@@ -2811,7 +2811,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/logout": {
+    "/api/v1/auth/logout": {
       "post": {
         "operationId": "AuthController_logout",
         "parameters": [],
@@ -2866,7 +2866,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/verify-email/{token}": {
+    "/api/v1/auth/verify-email/{token}": {
       "get": {
         "operationId": "AuthController_verifyEmail",
         "parameters": [
@@ -2920,7 +2920,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/resend-verification": {
+    "/api/v1/auth/resend-verification": {
       "post": {
         "operationId": "AuthController_resendVerification",
         "parameters": [],
@@ -2975,7 +2975,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/forgot-password": {
+    "/api/v1/auth/forgot-password": {
       "post": {
         "operationId": "AuthController_forgotPassword",
         "parameters": [],
@@ -3030,7 +3030,7 @@
         "tags": ["Auth"]
       }
     },
-    "/auth/reset-password": {
+    "/api/v1/auth/reset-password": {
       "post": {
         "operationId": "AuthController_resetPassword",
         "parameters": [],
@@ -3093,7 +3093,7 @@
         "tags": ["Auth"]
       }
     },
-    "/notifications": {
+    "/api/v1/notifications": {
       "get": {
         "operationId": "NotificationsController_findUserNotifications",
         "parameters": [
@@ -3211,7 +3211,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/notifications/unread-count": {
+    "/api/v1/notifications/unread-count": {
       "get": {
         "operationId": "NotificationsController_getUnreadCount",
         "parameters": [],
@@ -3257,7 +3257,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/notifications/{id}/read": {
+    "/api/v1/notifications/{id}/read": {
       "patch": {
         "operationId": "NotificationsController_markAsRead",
         "parameters": [
@@ -3319,7 +3319,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/notifications/read-all": {
+    "/api/v1/notifications/read-all": {
       "patch": {
         "operationId": "NotificationsController_markAllAsRead",
         "parameters": [],
@@ -3365,7 +3365,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/notifications/preferences": {
+    "/api/v1/notifications/preferences": {
       "get": {
         "operationId": "NotificationsController_getPreferences",
         "parameters": [],
@@ -3478,7 +3478,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/notifications/admin": {
+    "/api/v1/notifications/admin": {
       "get": {
         "operationId": "NotificationsController_findAll",
         "parameters": [
@@ -3604,7 +3604,7 @@
         "tags": ["Notifications"]
       }
     },
-    "/guest-cart": {
+    "/api/v1/guest-cart": {
       "get": {
         "operationId": "GuestCartController_getCart",
         "parameters": [
@@ -3728,7 +3728,7 @@
         "tags": ["Guest Cart"]
       }
     },
-    "/guest-cart/items": {
+    "/api/v1/guest-cart/items": {
       "post": {
         "operationId": "GuestCartController_addItem",
         "parameters": [
@@ -3799,7 +3799,7 @@
         "tags": ["Guest Cart"]
       }
     },
-    "/guest-cart/items/{itemId}": {
+    "/api/v1/guest-cart/items/{itemId}": {
       "patch": {
         "operationId": "GuestCartController_updateItem",
         "parameters": [
@@ -3947,7 +3947,7 @@
         "tags": ["Guest Cart"]
       }
     },
-    "/users/me": {
+    "/api/v1/users/me": {
       "get": {
         "operationId": "UsersController_getProfile",
         "parameters": [],
@@ -4053,7 +4053,7 @@
         "tags": ["Users"]
       }
     },
-    "/users/me/change-password": {
+    "/api/v1/users/me/change-password": {
       "post": {
         "operationId": "UsersController_changePassword",
         "parameters": [],
@@ -4117,7 +4117,7 @@
         "tags": ["Users"]
       }
     },
-    "/users/me/addresses": {
+    "/api/v1/users/me/addresses": {
       "get": {
         "operationId": "UsersController_getAddresses",
         "parameters": [],
@@ -4226,7 +4226,7 @@
         "tags": ["Users"]
       }
     },
-    "/users/me/addresses/{id}": {
+    "/api/v1/users/me/addresses/{id}": {
       "get": {
         "operationId": "UsersController_getAddress",
         "parameters": [
@@ -4450,7 +4450,7 @@
         "tags": ["Users"]
       }
     },
-    "/users": {
+    "/api/v1/users": {
       "get": {
         "operationId": "UsersController_findAll",
         "parameters": [
@@ -4543,7 +4543,7 @@
         "tags": ["Users"]
       }
     },
-    "/users/{id}": {
+    "/api/v1/users/{id}": {
       "get": {
         "operationId": "UsersController_findById",
         "parameters": [
@@ -4767,7 +4767,7 @@
         "tags": ["Users"]
       }
     },
-    "/users/{id}/deactivate": {
+    "/api/v1/users/{id}/deactivate": {
       "post": {
         "operationId": "UsersController_deactivateUser",
         "parameters": [
@@ -4847,7 +4847,7 @@
         "tags": ["Users"]
       }
     },
-    "/categories": {
+    "/api/v1/categories": {
       "get": {
         "operationId": "CategoriesController_findAll",
         "parameters": [
@@ -4997,7 +4997,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/tree": {
+    "/api/v1/categories/tree": {
       "get": {
         "operationId": "CategoriesController_findAllTree",
         "parameters": [],
@@ -5036,7 +5036,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/manage": {
+    "/api/v1/categories/manage": {
       "get": {
         "operationId": "CategoriesController_findAllAdmin",
         "parameters": [
@@ -5130,7 +5130,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/{slug}": {
+    "/api/v1/categories/{slug}": {
       "get": {
         "operationId": "CategoriesController_findBySlug",
         "parameters": [
@@ -5177,7 +5177,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/{id}": {
+    "/api/v1/categories/{id}": {
       "patch": {
         "operationId": "CategoriesController_update",
         "parameters": [
@@ -5319,7 +5319,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/{id}/deactivate": {
+    "/api/v1/categories/{id}/deactivate": {
       "post": {
         "operationId": "CategoriesController_deactivate",
         "parameters": [
@@ -5383,7 +5383,7 @@
         "tags": ["Categories"]
       }
     },
-    "/categories/{id}/image/upload": {
+    "/api/v1/categories/{id}/image/upload": {
       "post": {
         "operationId": "CategoriesController_uploadImage",
         "parameters": [
@@ -5481,7 +5481,7 @@
         "tags": ["Categories"]
       }
     },
-    "/products": {
+    "/api/v1/products": {
       "get": {
         "operationId": "ProductsController_findAll",
         "parameters": [
@@ -5666,7 +5666,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/manage": {
+    "/api/v1/products/manage": {
       "get": {
         "operationId": "ProductsController_findAllAdmin",
         "parameters": [
@@ -5790,7 +5790,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{slug}": {
+    "/api/v1/products/{slug}": {
       "get": {
         "operationId": "ProductsController_findBySlug",
         "parameters": [
@@ -5835,7 +5835,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{id}": {
+    "/api/v1/products/{id}": {
       "patch": {
         "operationId": "ProductsController_update",
         "parameters": [
@@ -5973,7 +5973,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{id}/deactivate": {
+    "/api/v1/products/{id}/deactivate": {
       "post": {
         "operationId": "ProductsController_deactivate",
         "parameters": [
@@ -6035,7 +6035,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{id}/images": {
+    "/api/v1/products/{id}/images": {
       "post": {
         "operationId": "ProductsController_addImage",
         "parameters": [
@@ -6105,7 +6105,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{id}/images/upload": {
+    "/api/v1/products/{id}/images/upload": {
       "post": {
         "operationId": "ProductsController_uploadImage",
         "parameters": [
@@ -6206,7 +6206,7 @@
         "tags": ["Products"]
       }
     },
-    "/products/{id}/images/{imageId}": {
+    "/api/v1/products/{id}/images/{imageId}": {
       "delete": {
         "operationId": "ProductsController_removeImage",
         "parameters": [
@@ -6275,7 +6275,7 @@
         "tags": ["Products"]
       }
     },
-    "/inventory/low-stock": {
+    "/api/v1/inventory/low-stock": {
       "get": {
         "operationId": "InventoryController_getLowStockProducts",
         "parameters": [
@@ -6368,7 +6368,7 @@
         "tags": ["Inventory"]
       }
     },
-    "/inventory/{productId}": {
+    "/api/v1/inventory/{productId}": {
       "get": {
         "operationId": "InventoryController_getStock",
         "parameters": [
@@ -6438,7 +6438,7 @@
         "tags": ["Inventory"]
       }
     },
-    "/inventory/{productId}/history": {
+    "/api/v1/inventory/{productId}/history": {
       "get": {
         "operationId": "InventoryController_getMovementHistory",
         "parameters": [
@@ -6548,7 +6548,7 @@
         "tags": ["Inventory"]
       }
     },
-    "/inventory/{productId}/adjust": {
+    "/api/v1/inventory/{productId}/adjust": {
       "post": {
         "operationId": "InventoryController_adjustStock",
         "parameters": [
@@ -6636,7 +6636,7 @@
         "tags": ["Inventory"]
       }
     },
-    "/cart": {
+    "/api/v1/cart": {
       "get": {
         "operationId": "CartController_getCart",
         "parameters": [],
@@ -6726,7 +6726,7 @@
         "tags": ["Cart"]
       }
     },
-    "/cart/items": {
+    "/api/v1/cart/items": {
       "post": {
         "operationId": "CartController_addItem",
         "parameters": [],
@@ -6796,7 +6796,7 @@
         "tags": ["Cart"]
       }
     },
-    "/cart/items/{itemId}": {
+    "/api/v1/cart/items/{itemId}": {
       "patch": {
         "operationId": "CartController_updateItem",
         "parameters": [
@@ -6934,7 +6934,7 @@
         "tags": ["Cart"]
       }
     },
-    "/cart/coupon": {
+    "/api/v1/cart/coupon": {
       "post": {
         "operationId": "CartController_applyCoupon",
         "parameters": [],
@@ -7056,7 +7056,7 @@
         "tags": ["Cart"]
       }
     },
-    "/reviews/product/{productId}": {
+    "/api/v1/reviews/product/{productId}": {
       "get": {
         "operationId": "ReviewsController_findByProduct",
         "parameters": [
@@ -7247,7 +7247,7 @@
         "tags": ["Reviews"]
       }
     },
-    "/reviews/{id}": {
+    "/api/v1/reviews/{id}": {
       "patch": {
         "operationId": "ReviewsController_update",
         "parameters": [
@@ -7387,7 +7387,7 @@
         "tags": ["Reviews"]
       }
     },
-    "/reviews/admin": {
+    "/api/v1/reviews/admin": {
       "get": {
         "operationId": "ReviewsController_findAll",
         "parameters": [
@@ -7497,7 +7497,7 @@
         "tags": ["Reviews"]
       }
     },
-    "/reviews/{id}/moderate": {
+    "/api/v1/reviews/{id}/moderate": {
       "patch": {
         "operationId": "ReviewsController_adminUpdate",
         "parameters": [
@@ -7583,7 +7583,7 @@
         "tags": ["Reviews"]
       }
     },
-    "/reviews/{id}/admin": {
+    "/api/v1/reviews/{id}/admin": {
       "delete": {
         "operationId": "ReviewsController_adminDelete",
         "parameters": [
@@ -9463,7 +9463,7 @@
       "CreateCategoryDto": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "name": { "type": "string", "maxLength": 100 },
           "slug": {
             "type": "string",
             "minLength": 2,
@@ -9489,7 +9489,7 @@
       "UpdateCategoryDto": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "name": { "type": "string", "maxLength": 100 },
           "slug": {
             "type": "string",
             "minLength": 2,
@@ -9647,7 +9647,7 @@
       "CreateProductDto": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "minLength": 2, "maxLength": 200 },
+          "name": { "type": "string", "maxLength": 200 },
           "slug": {
             "type": "string",
             "minLength": 2,
@@ -9691,7 +9691,7 @@
       "UpdateProductDto": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "minLength": 2, "maxLength": 200 },
+          "name": { "type": "string", "maxLength": 200 },
           "slug": {
             "type": "string",
             "minLength": 2,
@@ -10089,8 +10089,8 @@
         "type": "object",
         "properties": {
           "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "title": { "type": "string", "minLength": 3, "maxLength": 100 },
-          "comment": { "type": "string", "minLength": 10, "maxLength": 2000 }
+          "title": { "type": "string", "maxLength": 100 },
+          "comment": { "type": "string", "maxLength": 2000 }
         },
         "required": ["rating", "comment"]
       },
@@ -10098,13 +10098,8 @@
         "type": "object",
         "properties": {
           "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "title": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 100,
-            "nullable": true
-          },
-          "comment": { "type": "string", "minLength": 10, "maxLength": 2000 }
+          "title": { "type": "string", "maxLength": 100, "nullable": true },
+          "comment": { "type": "string", "maxLength": 2000 }
         }
       },
       "AdminUpdateReviewDto": {
