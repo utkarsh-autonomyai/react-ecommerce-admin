@@ -29,7 +29,7 @@ describe('PendingReviews', () => {
 
   it('should use singular form for count of 1', async () => {
     server.use(
-      http.get('http://localhost:3000/reviews/admin', () => {
+      http.get('http://localhost:3000/api/v1/reviews/admin', () => {
         return HttpResponse.json({
           data: [],
           meta: { total: 1, page: 1, limit: 1, totalPages: 1 },
@@ -47,7 +47,7 @@ describe('PendingReviews', () => {
 
   it('should show zero count', async () => {
     server.use(
-      http.get('http://localhost:3000/reviews/admin', () => {
+      http.get('http://localhost:3000/api/v1/reviews/admin', () => {
         return HttpResponse.json({
           data: [],
           meta: { total: 0, page: 1, limit: 1, totalPages: 0 },

@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://localhost:3000/api/v1';
 
 export const usersHandlers = [
   http.patch(`${BASE_URL}/users/:id`, () => {

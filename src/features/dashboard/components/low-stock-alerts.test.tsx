@@ -40,7 +40,7 @@ describe('LowStockAlerts', () => {
 
   it('should show empty state when no low stock products', async () => {
     server.use(
-      http.get('http://localhost:3000/inventory/low-stock', () => {
+      http.get('http://localhost:3000/api/v1/inventory/low-stock', () => {
         return HttpResponse.json({
           data: [],
           meta: { total: 0, page: 1, limit: 5, totalPages: 0 },
