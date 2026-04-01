@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { reviewsControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   DataTable,
   DataTablePagination,
@@ -37,6 +38,7 @@ export const Route = createFileRoute('/_authenticated/reviews/')({
 });
 
 function ReviewsPage() {
+  useDocumentTitle('Reviews');
   const search = Route.useSearch();
   const navigate = useNavigate();
 

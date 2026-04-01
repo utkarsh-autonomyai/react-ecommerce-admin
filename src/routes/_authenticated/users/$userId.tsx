@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import { usersControllerFindByIdOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +22,13 @@ function UserDetailPage() {
     usersControllerFindByIdOptions({ path: { id: userId } }),
   );
 
+  const user = data?.data;
+  useDocumentTitle(
+    user
+      ? [user.firstName, user.lastName].filter(Boolean).join(' ') || user.email
+      : undefined,
+  );
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -29,8 +37,6 @@ function UserDetailPage() {
       </div>
     );
   }
-
-  const user = data?.data;
 
   if (!user) {
     return <div>User not found.</div>;

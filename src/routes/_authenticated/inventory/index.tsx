@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { inventoryControllerGetLowStockProductsOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   DataTable,
   DataTablePagination,
@@ -24,6 +25,7 @@ export const Route = createFileRoute('/_authenticated/inventory/')({
 });
 
 function InventoryPage() {
+  useDocumentTitle('Inventory');
   const search = Route.useSearch();
   const navigate = useNavigate();
 

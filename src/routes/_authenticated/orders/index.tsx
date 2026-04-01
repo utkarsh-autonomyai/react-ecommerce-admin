@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { ordersControllerGetAllOrdersOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   DataTable,
   DataTablePagination,
@@ -42,6 +43,7 @@ export const Route = createFileRoute('/_authenticated/orders/')({
 });
 
 function OrdersPage() {
+  useDocumentTitle('Orders');
   const search = Route.useSearch();
   const navigate = useNavigate();
 

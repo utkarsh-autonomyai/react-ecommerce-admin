@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { DollarSign, Package, ShoppingCart, Users } from 'lucide-react';
 
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   ordersControllerGetAllOrdersOptions,
   productsControllerFindAllOptions,
@@ -35,6 +36,7 @@ const getTodayRange = (): { fromDate: string; toDate: string } => {
 };
 
 const DashboardPage = () => {
+  useDocumentTitle('Dashboard');
   const today = getTodayRange();
 
   const ordersQuery = useQuery(

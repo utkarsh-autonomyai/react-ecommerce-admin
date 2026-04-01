@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { CategoryForm } from '@/features/categories/components/category-form';
@@ -10,6 +11,7 @@ export const Route = createFileRoute('/_authenticated/categories/create')({
 });
 
 function CategoryCreatePage() {
+  useDocumentTitle('Create Category');
   return (
     <div className='space-y-6'>
       <PageHeader

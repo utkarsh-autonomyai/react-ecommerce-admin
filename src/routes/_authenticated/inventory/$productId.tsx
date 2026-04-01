@@ -7,6 +7,7 @@ import {
   inventoryControllerGetStockOptions,
   inventoryControllerGetMovementHistoryOptions,
 } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   DataTable,
   DataTablePagination,
@@ -67,6 +68,9 @@ function InventoryDetailPage() {
     });
   };
 
+  const stock = stockData?.data;
+  useDocumentTitle(stock ? `Inventory: ${stock.name}` : undefined);
+
   if (isStockLoading) {
     return (
       <div className='space-y-6'>
@@ -75,8 +79,6 @@ function InventoryDetailPage() {
       </div>
     );
   }
-
-  const stock = stockData?.data;
 
   if (!stock) {
     return <div>Product not found.</div>;

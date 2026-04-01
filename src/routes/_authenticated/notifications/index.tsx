@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { notificationsControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import type { NotificationDto } from '@/api/generated/types.gen';
 import {
   DataTable,
@@ -40,6 +41,7 @@ export const Route = createFileRoute('/_authenticated/notifications/')({
 });
 
 function NotificationsPage() {
+  useDocumentTitle('Notifications');
   const search = Route.useSearch();
   const navigate = useNavigate();
 

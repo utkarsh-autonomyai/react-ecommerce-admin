@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { CouponForm } from '@/features/coupons/components/coupon-form';
@@ -10,6 +11,7 @@ export const Route = createFileRoute('/_authenticated/coupons/create')({
 });
 
 function CouponCreatePage() {
+  useDocumentTitle('Create Coupon');
   return (
     <div className='space-y-6'>
       <PageHeader title='Create Coupon' description='Add a new discount coupon'>

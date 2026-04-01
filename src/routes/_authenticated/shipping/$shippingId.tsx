@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import { shippingControllerFindByIdOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -22,6 +23,9 @@ function ShippingEditPage() {
     shippingControllerFindByIdOptions({ path: { id: shippingId } }),
   );
 
+  const method = data?.data;
+  useDocumentTitle(method?.name);
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -30,8 +34,6 @@ function ShippingEditPage() {
       </div>
     );
   }
-
-  const method = data?.data;
 
   if (!method) {
     return <div>Shipping method not found.</div>;

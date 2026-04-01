@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 
 import { ordersControllerGetOrderByIdOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -20,6 +21,9 @@ function OrderDetailPage() {
     ordersControllerGetOrderByIdOptions({ path: { id: orderId } }),
   );
 
+  const order = data?.data;
+  useDocumentTitle(order ? `Order ${order.orderNumber}` : undefined);
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -28,8 +32,6 @@ function OrderDetailPage() {
       </div>
     );
   }
-
-  const order = data?.data;
 
   if (!order) {
     return <div>Order not found.</div>;

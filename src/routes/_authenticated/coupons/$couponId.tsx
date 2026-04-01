@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import { couponsControllerFindByIdOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { COUPON_TYPE_MAP } from '@/components/shared/status-maps';
@@ -24,6 +25,9 @@ function CouponEditPage() {
     couponsControllerFindByIdOptions({ path: { id: couponId } }),
   );
 
+  const coupon = data?.data;
+  useDocumentTitle(coupon ? `Coupon ${coupon.code}` : undefined);
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -32,8 +36,6 @@ function CouponEditPage() {
       </div>
     );
   }
-
-  const coupon = data?.data;
 
   if (!coupon) {
     return <div>Coupon not found.</div>;

@@ -9,6 +9,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   paymentsControllerGetAllPaymentsOptions,
   paymentsControllerGetAllPaymentsQueryKey,
@@ -55,6 +56,7 @@ export const Route = createFileRoute('/_authenticated/payments/')({
 });
 
 function PaymentsPage() {
+  useDocumentTitle('Payments');
   const search = Route.useSearch();
   const navigate = useNavigate();
   const queryClient = useQueryClient();

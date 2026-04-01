@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import { productsControllerFindBySlugOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { MoneyDisplay } from '@/components/shared/money-display';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,9 @@ function ProductDetailPage() {
     productsControllerFindBySlugOptions({ path: { slug: productSlug } }),
   );
 
+  const product = data?.data;
+  useDocumentTitle(product?.name);
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -31,8 +35,6 @@ function ProductDetailPage() {
       </div>
     );
   }
-
-  const product = data?.data;
 
   if (!product) {
     return <div>Product not found.</div>;

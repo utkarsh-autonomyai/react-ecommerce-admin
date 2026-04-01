@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import { categoriesControllerFindBySlugOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,6 +24,9 @@ function CategoryDetailPage() {
     categoriesControllerFindBySlugOptions({ path: { slug: categorySlug } }),
   );
 
+  const category = data?.data;
+  useDocumentTitle(category?.name);
+
   if (isLoading) {
     return (
       <div className='space-y-6'>
@@ -31,8 +35,6 @@ function CategoryDetailPage() {
       </div>
     );
   }
-
-  const category = data?.data;
 
   if (!category) {
     return <div>Category not found.</div>;

@@ -22,6 +22,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error('Uncaught error:', error, errorInfo);
+    document.title = 'Error | Admin';
   }
 
   handleReset = () => {

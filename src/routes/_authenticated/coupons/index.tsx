@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import { z } from 'zod';
 
 import { couponsControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   DataTable,
   DataTablePagination,
@@ -38,6 +39,7 @@ export const Route = createFileRoute('/_authenticated/coupons/')({
 });
 
 function CouponsPage() {
+  useDocumentTitle('Coupons');
   const search = Route.useSearch();
   const navigate = useNavigate();
 

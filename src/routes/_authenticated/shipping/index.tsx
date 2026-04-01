@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 
 import { shippingControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { DataTable } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,7 @@ export const Route = createFileRoute('/_authenticated/shipping/')({
 });
 
 function ShippingPage() {
+  useDocumentTitle('Shipping Methods');
   const { data, isLoading } = useQuery(shippingControllerFindAllOptions());
 
   const items = data?.data ?? [];
