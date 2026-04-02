@@ -15,7 +15,6 @@ const buildCspContent = (apiUrl: string): string => {
     "img-src 'self' https://res.cloudinary.com data:",
     "font-src 'self'",
     `connect-src 'self' ${apiOrigin}`,
-    "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
   ].join('; ');

@@ -5,8 +5,8 @@ import {
   renderWithProviders,
   createTestQueryClient,
 } from '../../../../tests/helpers';
-import type { ProductListItemDto } from '@/api/generated/types.gen';
-import { ProductsActionsCell } from './products-actions-cell';
+import type { CategoryResponseDto } from '@/api/generated/types.gen';
+import { CategoriesActionsCell } from './categories-actions-cell';
 
 const mockNavigate = vi.fn();
 
@@ -18,29 +18,26 @@ vi.mock('sonner', () => ({
   toast: { success: vi.fn(), error: vi.fn() },
 }));
 
-const activeProduct: ProductListItemDto = {
+const activeCategory: CategoryResponseDto = {
   id: '1',
-  name: 'Test Widget',
-  slug: 'test-widget',
-  price: '29.99',
-  stock: 50,
+  name: 'Electronics',
+  slug: 'electronics',
   isActive: true,
-  isFeatured: false,
+  sortOrder: 0,
   createdAt: '2026-01-01T00:00:00Z',
-  category: { id: 'c1', name: 'Electronics', slug: 'electronics' },
-  images: [],
+  updatedAt: '2026-01-01T00:00:00Z',
 };
 
-const inactiveProduct: ProductListItemDto = {
-  ...activeProduct,
+const inactiveCategory: CategoryResponseDto = {
+  ...activeCategory,
   id: '2',
-  slug: 'inactive-widget',
+  slug: 'inactive-cat',
   isActive: false,
 };
 
-describe('ProductsActionsCell', () => {
+describe('CategoriesActionsCell', () => {
   it('should render dropdown menu trigger', () => {
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
     expect(
       screen.getByRole('button', { name: 'Open menu' }),
     ).toBeInTheDocument();
@@ -48,38 +45,38 @@ describe('ProductsActionsCell', () => {
 
   it('should show view details option', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
 
     expect(screen.getByText('View details')).toBeInTheDocument();
   });
 
-  it('should navigate to product detail on view details click', async () => {
+  it('should navigate to category detail on view details click', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
     await user.click(screen.getByText('View details'));
 
     expect(mockNavigate).toHaveBeenCalledWith({
-      to: '/products/$productSlug',
-      params: { productSlug: 'test-widget' },
+      to: '/categories/$categorySlug',
+      params: { categorySlug: 'electronics' },
     });
   });
 
-  it('should show deactivate option for active products', async () => {
+  it('should show deactivate option for active categories', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
 
     expect(screen.getByText('Deactivate')).toBeInTheDocument();
   });
 
-  it('should show activate option for inactive products', async () => {
+  it('should show activate option for inactive categories', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={inactiveProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={inactiveCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
 
@@ -88,29 +85,29 @@ describe('ProductsActionsCell', () => {
 
   it('should show deactivate confirmation dialog', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
     await user.click(screen.getByText('Deactivate'));
 
     await waitFor(() => {
-      expect(screen.getByText('Deactivate product')).toBeInTheDocument();
+      expect(screen.getByText('Deactivate category')).toBeInTheDocument();
     });
-    expect(screen.getByText(/deactivate "Test Widget"/)).toBeInTheDocument();
+    expect(screen.getByText(/deactivate "Electronics"/)).toBeInTheDocument();
   });
 
   it('should show delete confirmation dialog', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />);
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />);
 
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
     await user.click(screen.getByText('Delete'));
 
     await waitFor(() => {
-      expect(screen.getByText('Delete product')).toBeInTheDocument();
+      expect(screen.getByText('Delete category')).toBeInTheDocument();
     });
     expect(
-      screen.getByText(/permanently delete "Test Widget"/),
+      screen.getByText(/permanently delete "Electronics"/),
     ).toBeInTheDocument();
   });
 
@@ -119,7 +116,7 @@ describe('ProductsActionsCell', () => {
     const queryClient = createTestQueryClient();
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
 
-    renderWithProviders(<ProductsActionsCell product={inactiveProduct} />, {
+    renderWithProviders(<CategoriesActionsCell category={inactiveCategory} />, {
       queryClient,
     });
 
@@ -132,12 +129,12 @@ describe('ProductsActionsCell', () => {
       );
       expect(calledKeys).toContainEqual(
         expect.arrayContaining([
-          expect.objectContaining({ _id: 'productsControllerFindAll' }),
+          expect.objectContaining({ _id: 'categoriesControllerFindAll' }),
         ]),
       );
       expect(calledKeys).toContainEqual(
         expect.arrayContaining([
-          expect.objectContaining({ _id: 'productsControllerFindAllAdmin' }),
+          expect.objectContaining({ _id: 'categoriesControllerFindAllAdmin' }),
         ]),
       );
     });
@@ -148,7 +145,7 @@ describe('ProductsActionsCell', () => {
     const queryClient = createTestQueryClient();
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
 
-    renderWithProviders(<ProductsActionsCell product={activeProduct} />, {
+    renderWithProviders(<CategoriesActionsCell category={activeCategory} />, {
       queryClient,
     });
 
@@ -156,7 +153,7 @@ describe('ProductsActionsCell', () => {
     await user.click(screen.getByText('Delete'));
 
     await waitFor(() => {
-      expect(screen.getByText('Delete product')).toBeInTheDocument();
+      expect(screen.getByText('Delete category')).toBeInTheDocument();
     });
 
     await user.click(screen.getByRole('button', { name: 'Delete' }));
@@ -167,12 +164,12 @@ describe('ProductsActionsCell', () => {
       );
       expect(calledKeys).toContainEqual(
         expect.arrayContaining([
-          expect.objectContaining({ _id: 'productsControllerFindAll' }),
+          expect.objectContaining({ _id: 'categoriesControllerFindAll' }),
         ]),
       );
       expect(calledKeys).toContainEqual(
         expect.arrayContaining([
-          expect.objectContaining({ _id: 'productsControllerFindAllAdmin' }),
+          expect.objectContaining({ _id: 'categoriesControllerFindAllAdmin' }),
         ]),
       );
     });

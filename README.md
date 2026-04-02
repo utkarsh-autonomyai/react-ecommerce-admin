@@ -237,7 +237,7 @@ pnpm test:coverage
 pnpm test:e2e
 ```
 
-- **14 test suites** with **80+ unit tests**
+- **15 test suites** with **90+ unit tests**
 - **8 E2E test suites** with **45 Playwright tests**
 - MSW v2 for API mocking (handlers per domain)
 - Fresh QueryClient per test (no cache leakage)

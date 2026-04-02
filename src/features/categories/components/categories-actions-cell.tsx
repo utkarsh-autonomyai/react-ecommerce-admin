@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import {
   categoriesControllerFindAllQueryKey,
+  categoriesControllerFindAllAdminQueryKey,
   categoriesControllerHardDeleteMutation,
   categoriesControllerUpdateMutation,
 } from '@/api/generated/@tanstack/react-query.gen';
@@ -32,12 +33,19 @@ export const CategoriesActionsCell = ({
   const [showDeactivate, setShowDeactivate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
+  const invalidateCategories = () => {
+    queryClient.invalidateQueries({
+      queryKey: categoriesControllerFindAllQueryKey(),
+    });
+    queryClient.invalidateQueries({
+      queryKey: categoriesControllerFindAllAdminQueryKey(),
+    });
+  };
+
   const toggleActiveMutation = useMutation({
     ...categoriesControllerUpdateMutation(),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: categoriesControllerFindAllQueryKey(),
-      });
+      invalidateCategories();
       setShowDeactivate(false);
       toast.success(
         variables.body.isActive ? 'Category activated' : 'Category deactivated',
@@ -48,9 +56,7 @@ export const CategoriesActionsCell = ({
   const deleteMutation = useMutation({
     ...categoriesControllerHardDeleteMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: categoriesControllerFindAllQueryKey(),
-      });
+      invalidateCategories();
       setShowDelete(false);
       toast.success('Category deleted');
     },
