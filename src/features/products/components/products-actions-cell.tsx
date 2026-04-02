@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import {
   productsControllerFindAllQueryKey,
+  productsControllerFindAllAdminQueryKey,
   productsControllerHardDeleteMutation,
   productsControllerUpdateMutation,
 } from '@/api/generated/@tanstack/react-query.gen';
@@ -30,12 +31,19 @@ export const ProductsActionsCell = ({ product }: ProductsActionsCellProps) => {
   const [showDeactivate, setShowDeactivate] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
+  const invalidateProducts = () => {
+    queryClient.invalidateQueries({
+      queryKey: productsControllerFindAllQueryKey(),
+    });
+    queryClient.invalidateQueries({
+      queryKey: productsControllerFindAllAdminQueryKey(),
+    });
+  };
+
   const toggleActiveMutation = useMutation({
     ...productsControllerUpdateMutation(),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
+      invalidateProducts();
       setShowDeactivate(false);
       toast.success(
         variables.body.isActive ? 'Product activated' : 'Product deactivated',
@@ -46,9 +54,7 @@ export const ProductsActionsCell = ({ product }: ProductsActionsCellProps) => {
   const deleteMutation = useMutation({
     ...productsControllerHardDeleteMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
+      invalidateProducts();
       setShowDelete(false);
       toast.success('Product deleted');
     },

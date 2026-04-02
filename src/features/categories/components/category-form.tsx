@@ -7,6 +7,7 @@ import { useNavigate } from '@tanstack/react-router';
 import {
   categoriesControllerCreateMutation,
   categoriesControllerFindAllQueryKey,
+  categoriesControllerFindAllAdminQueryKey,
   categoriesControllerFindAllAdminOptions,
   categoriesControllerFindBySlugQueryKey,
   categoriesControllerUpdateMutation,
@@ -101,31 +102,28 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
   const existingImageUrl =
     typeof category?.imageUrl === 'string' ? category.imageUrl : null;
 
+  const invalidateCategories = () => {
+    queryClient.invalidateQueries({
+      queryKey: categoriesControllerFindAllQueryKey(),
+    });
+    queryClient.invalidateQueries({
+      queryKey: categoriesControllerFindAllAdminQueryKey(),
+    });
+  };
+
   const createMutation = useMutation({
     ...categoriesControllerCreateMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: categoriesControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateCategories,
   });
 
   const updateMutation = useMutation({
     ...categoriesControllerUpdateMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: categoriesControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateCategories,
   });
 
   const uploadImageMutation = useMutation({
     ...categoriesControllerUploadImageMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: categoriesControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateCategories,
   });
 
   const isPending =

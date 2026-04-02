@@ -9,6 +9,7 @@ import {
   categoriesControllerFindAllAdminOptions,
   productsControllerCreateMutation,
   productsControllerFindAllQueryKey,
+  productsControllerFindAllAdminQueryKey,
   productsControllerFindBySlugQueryKey,
   productsControllerUpdateMutation,
   productsControllerUploadImageMutation,
@@ -110,39 +111,34 @@ export const ProductForm = ({ product }: ProductFormProps) => {
 
   const [newImageFile, setNewImageFile] = useState<File | null>(null);
 
+  const invalidateProducts = () => {
+    queryClient.invalidateQueries({
+      queryKey: productsControllerFindAllQueryKey(),
+    });
+    queryClient.invalidateQueries({
+      queryKey: productsControllerFindAllAdminQueryKey(),
+    });
+  };
+
   const createMutation = useMutation({
     ...productsControllerCreateMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateProducts,
   });
 
   const updateMutation = useMutation({
     ...productsControllerUpdateMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateProducts,
   });
 
   const uploadImageMutation = useMutation({
     ...productsControllerUploadImageMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
-    },
+    onSuccess: invalidateProducts,
   });
 
   const removeImageMutation = useMutation({
     ...productsControllerRemoveImageMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productsControllerFindAllQueryKey(),
-      });
+      invalidateProducts();
       if (product) {
         queryClient.invalidateQueries({
           queryKey: productsControllerFindBySlugQueryKey({
