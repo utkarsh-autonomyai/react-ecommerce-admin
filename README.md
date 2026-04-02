@@ -140,14 +140,17 @@ cd react-ecommerce-admin
 pnpm install
 
 # Configure environment
-cp .env.example .env
-# Edit .env — set VITE_API_URL to your backend URL (default: http://localhost:3000)
+cp .env.example .env.development
+# Edit .env.development — set VITE_API_URL to your backend URL (default: http://localhost:3000)
 
 # Generate API client from backend Swagger spec
 pnpm api:generate
 
-# Start development server
+# Start development server (uses local backend)
 pnpm dev
+
+# Or start against production API
+pnpm dev:prod
 ```
 
 The admin panel runs on **`http://localhost:3001`**.
@@ -160,7 +163,8 @@ Login with the admin credentials from the backend seed data.
 
 | Command              | Description                                             |
 | -------------------- | ------------------------------------------------------- |
-| `pnpm dev`           | Start Vite dev server (port 3001)                       |
+| `pnpm dev`           | Start Vite dev server with local backend (port 3001)    |
+| `pnpm dev:prod`      | Start Vite dev server with production backend           |
 | `pnpm build`         | TypeScript check + Vite production build                |
 | `pnpm build:analyze` | Build with bundle visualizer (opens treemap)            |
 | `pnpm preview`       | Preview production build locally                        |
@@ -267,6 +271,11 @@ See [`.env.example`](.env.example) for all required variables.
 | Variable       | Description          | Default                 |
 | -------------- | -------------------- | ----------------------- |
 | `VITE_API_URL` | Backend API base URL | `http://localhost:3000` |
+
+| File               | Mode                     | API Target                   |
+| ------------------ | ------------------------ | ---------------------------- |
+| `.env.development` | `pnpm dev`               | Local backend (localhost)    |
+| `.env.production`  | `pnpm dev:prod` / Vercel | Production backend (Railway) |
 
 All environment variables are validated at build time via Zod. The app will not build with missing or invalid configuration.
 
