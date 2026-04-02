@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "dev:prod": "vite --mode production",
-    "prebuild": "openapi-ts",
+    "prebuild": "openapi-ts && tsr generate",
     "build": "tsc -b && vite build",
     "build:analyze": "ANALYZE=true tsc -b && ANALYZE=true vite build",
     "preview": "vite preview",
@@ -60,6 +60,7 @@
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-query-devtools": "^5.96.0",
     "@tanstack/react-router-devtools": "^1.166.11",
+    "@tanstack/router-cli": "^1.166.25",
     "@tanstack/router-plugin": "^1.167.12",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
