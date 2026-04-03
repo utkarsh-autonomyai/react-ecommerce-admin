@@ -96,7 +96,9 @@ A production-ready **admin dashboard** for the [NestJS Ecommerce API](https://gi
 
 - Notification bell with unread count (polling)
 - Notification list with type and read status filters
-- Mark as read (single and all)
+- Mark as read / mark as unread toggle per notification
+- Mark all as read (bell popover and notifications page)
+- Delete individual notifications and delete all read
 
 ### Authentication & Security
 
@@ -113,6 +115,8 @@ A production-ready **admin dashboard** for the [NestJS Ecommerce API](https://gi
 - Dark/light/system theme with persistence
 - Per-route page titles for multi-tab UX (`{Page} | Admin`)
 - Collapsible sidebar with mobile responsive drawer
+- **Mobile-first responsive design** — all pages optimized for 375px, 768px, and 1280px+ viewports
+- **Global command palette** (⌘K / Ctrl+K) — search across all entities with live product results
 - Server-side paginated data tables with column visibility, faceted filters
 - Loading skeletons, empty states, confirmation dialogs
 - Global error boundary + route-level error components
@@ -193,7 +197,7 @@ src/
 │   └── client.ts               # Configured fetch with auth interceptors
 ├── components/
 │   ├── layout/                 # AppLayout, Sidebar, Header
-│   ├── shared/                 # DataTable, ConfirmDialog, StatusBadge, ErrorBoundary, etc.
+│   ├── shared/                 # DataTable, GlobalSearch, ConfirmDialog, StatusBadge, ErrorBoundary, etc.
 │   └── ui/                     # shadcn/ui components (managed by CLI)
 ├── config/
 │   └── env.ts                  # Zod-validated environment
@@ -209,7 +213,7 @@ src/
 │   ├── coupons/                # Coupon CRUD, validation rules
 │   ├── shipping/               # Shipping method CRUD
 │   ├── inventory/              # Stock management, movement history
-│   └── notifications/          # Notification bell, list
+│   └── notifications/          # Notification bell, list, read/unread/delete actions
 ├── hooks/                      # useDocumentTitle, useDebounce, useMediaQuery, useOnlineStatus
 ├── lib/
 │   ├── api-error.ts            # API error parsing utility
