@@ -166,20 +166,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
       setSlugManuallyEdited(false);
 
       if (updated.slug !== category.slug) {
-        // Slug changed — remove old cache, navigate to new URL
         queryClient.removeQueries({
-          queryKey: categoriesControllerFindBySlugQueryKey({
-            path: { slug: category.slug },
-          }),
-        });
-        navigate({
-          to: '/categories/$categorySlug',
-          params: { categorySlug: updated.slug },
-          replace: true,
-        });
-      } else {
-        // Slug unchanged — refetch detail to show updated data/images
-        queryClient.invalidateQueries({
           queryKey: categoriesControllerFindBySlugQueryKey({
             path: { slug: category.slug },
           }),
@@ -187,6 +174,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
       }
 
       toast.success('Category updated');
+      navigate({ to: '/categories' });
     } else {
       // POST: omit empty optional fields
       const body = {
@@ -205,10 +193,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
       }
 
       toast.success('Category created');
-      navigate({
-        to: '/categories/$categorySlug',
-        params: { categorySlug: result.data.slug },
-      });
+      navigate({ to: '/categories' });
     }
   };
 

@@ -209,8 +209,9 @@ export const CouponForm = ({ coupon }: CouponFormProps) => {
       });
 
       toast.success('Coupon updated');
+      navigate({ to: '/coupons' });
     } else {
-      const result = await createMutation.mutateAsync({
+      await createMutation.mutateAsync({
         body: {
           code,
           description: values.description || undefined,
@@ -227,10 +228,7 @@ export const CouponForm = ({ coupon }: CouponFormProps) => {
       });
 
       toast.success('Coupon created');
-      navigate({
-        to: '/coupons/$couponId',
-        params: { couponId: result.data.id },
-      });
+      navigate({ to: '/coupons' });
     }
   };
 

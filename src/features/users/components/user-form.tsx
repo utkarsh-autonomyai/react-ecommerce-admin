@@ -2,6 +2,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
 import {
@@ -39,6 +40,7 @@ type UserFormProps = {
 
 export const UserForm = ({ user }: UserFormProps) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const currentUser = useAuthStore((state) => state.user);
   const isSelf = currentUser?.id === user.id;
 
@@ -76,6 +78,7 @@ export const UserForm = ({ user }: UserFormProps) => {
         queryKey: usersControllerFindAllQueryKey(),
       });
       toast.success('User updated');
+      navigate({ to: '/users' });
     },
   });
 

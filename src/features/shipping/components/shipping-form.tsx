@@ -134,8 +134,9 @@ export const ShippingForm = ({ method }: ShippingFormProps) => {
       });
 
       toast.success('Shipping method updated');
+      navigate({ to: '/shipping' });
     } else {
-      const result = await createMutation.mutateAsync({
+      await createMutation.mutateAsync({
         body: {
           name: values.name,
           description: values.description || undefined,
@@ -148,10 +149,7 @@ export const ShippingForm = ({ method }: ShippingFormProps) => {
       });
 
       toast.success('Shipping method created');
-      navigate({
-        to: '/shipping/$shippingId',
-        params: { shippingId: result.data.id },
-      });
+      navigate({ to: '/shipping' });
     }
   };
 
