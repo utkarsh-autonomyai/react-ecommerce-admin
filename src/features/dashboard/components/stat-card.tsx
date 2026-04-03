@@ -12,14 +12,19 @@ type StatCardProps = {
 
 const StatCard = ({ title, value, icon, description }: StatCardProps) => {
   return (
-    <Card>
+    <Card className='@container'>
       <CardContent className='flex items-center gap-4'>
         <div className='bg-muted flex size-12 shrink-0 items-center justify-center rounded-full'>
           {icon}
         </div>
         <div className='min-w-0'>
           <p className='text-muted-foreground text-sm font-medium'>{title}</p>
-          <p className='text-2xl font-bold'>{value}</p>
+          <p
+            className='w-fit text-2xl font-bold'
+            style={{ fontSize: 'clamp(0.875rem, 3cqi, 1.5rem)' }}
+          >
+            {value}
+          </p>
           {description && (
             <p className='text-muted-foreground text-xs'>{description}</p>
           )}
