@@ -84,40 +84,42 @@ const RevenueChart = () => {
         <CardDescription>Last 30 days</CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width='100%' height={300}>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray='3 3' className='stroke-border' />
-            <XAxis
-              dataKey='date'
-              tickFormatter={formatDate}
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis
-              tickFormatter={formatMoneyCompact}
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-              width={80}
-            />
-            <Tooltip
-              formatter={(value) => [
-                formatMoneyCompact(Number(value ?? 0)),
-                'Revenue',
-              ]}
-              labelFormatter={(label) => formatDate(String(label))}
-            />
-            <Line
-              type='monotone'
-              dataKey='revenue'
-              className='stroke-chart-1'
-              strokeWidth={2}
-              dot={false}
-              activeDot={{ r: 4 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <div className='h-62.5 sm:h-75'>
+          <ResponsiveContainer width='100%' height='100%'>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray='3 3' className='stroke-border' />
+              <XAxis
+                dataKey='date'
+                tickFormatter={formatDate}
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+              />
+              <YAxis
+                tickFormatter={formatMoneyCompact}
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                width={80}
+              />
+              <Tooltip
+                formatter={(value) => [
+                  formatMoneyCompact(Number(value ?? 0)),
+                  'Revenue',
+                ]}
+                labelFormatter={(label) => formatDate(String(label))}
+              />
+              <Line
+                type='monotone'
+                dataKey='revenue'
+                className='stroke-chart-1'
+                strokeWidth={2}
+                dot={false}
+                activeDot={{ r: 4 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );

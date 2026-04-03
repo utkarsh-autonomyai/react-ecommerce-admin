@@ -375,7 +375,7 @@ export const ProductForm = ({ product }: ProductFormProps) => {
                       alt={
                         typeof image.alt === 'string' ? image.alt : product.name
                       }
-                      className='h-24 w-24 rounded-md border object-cover'
+                      className='h-20 w-20 rounded-md border object-cover sm:h-24 sm:w-24'
                     />
                     <Button
                       type='button'

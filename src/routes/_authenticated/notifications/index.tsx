@@ -98,7 +98,7 @@ function NotificationsPage() {
           value={search.type ?? 'all'}
           onValueChange={(v) => handleFilterChange('type', v)}
         >
-          <SelectTrigger className='w-56'>
+          <SelectTrigger className='w-full sm:w-56'>
             <SelectValue placeholder='All types' />
           </SelectTrigger>
           <SelectContent>
@@ -115,7 +115,7 @@ function NotificationsPage() {
           value={search.isRead ?? 'all'}
           onValueChange={(v) => handleFilterChange('isRead', v)}
         >
-          <SelectTrigger className='w-40'>
+          <SelectTrigger className='w-full sm:w-40'>
             <SelectValue placeholder='All statuses' />
           </SelectTrigger>
           <SelectContent>

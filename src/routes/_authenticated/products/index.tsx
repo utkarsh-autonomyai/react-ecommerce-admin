@@ -106,7 +106,7 @@ function ProductsPage() {
         </Button>
       </PageHeader>
 
-      <div className='flex items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-4'>
         <Input
           key={search.search}
           placeholder='Search products...'
@@ -124,7 +124,7 @@ function ProductsPage() {
               handleFilterChange({ search: value });
             }
           }}
-          className='max-w-sm'
+          className='w-full sm:max-w-sm'
         />
 
         <Select
@@ -135,7 +135,7 @@ function ProductsPage() {
             })
           }
         >
-          <SelectTrigger className='w-48'>
+          <SelectTrigger className='w-full sm:w-48'>
             <SelectValue placeholder='All categories' />
           </SelectTrigger>
           <SelectContent>

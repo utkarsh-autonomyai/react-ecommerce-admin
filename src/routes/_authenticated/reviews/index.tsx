@@ -100,7 +100,7 @@ function ReviewsPage() {
           value={search.status ?? 'all'}
           onValueChange={(v) => handleFilterChange('status', v)}
         >
-          <SelectTrigger className='w-48'>
+          <SelectTrigger className='w-full sm:w-48'>
             <SelectValue placeholder='All statuses' />
           </SelectTrigger>
           <SelectContent>
@@ -117,7 +117,7 @@ function ReviewsPage() {
           value={search.rating !== undefined ? String(search.rating) : 'all'}
           onValueChange={(v) => handleFilterChange('rating', v)}
         >
-          <SelectTrigger className='w-40'>
+          <SelectTrigger className='w-full sm:w-40'>
             <SelectValue placeholder='All ratings' />
           </SelectTrigger>
           <SelectContent>

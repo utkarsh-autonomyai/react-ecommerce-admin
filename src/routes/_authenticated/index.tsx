@@ -93,7 +93,7 @@ const DashboardPage = () => {
         description="Overview of your store's performance"
       />
 
-      <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
+      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         {isLoading ? (
           Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)
         ) : (
@@ -126,12 +126,12 @@ const DashboardPage = () => {
         )}
       </div>
 
-      <div className='grid gap-4 lg:grid-cols-2'>
+      <div className='grid gap-4 md:grid-cols-2'>
         <RevenueChart />
         <OrdersStatusChart />
       </div>
 
-      <div className='grid gap-4 lg:grid-cols-2'>
+      <div className='grid gap-4 md:grid-cols-2'>
         <RecentOrders />
         <div className='space-y-4'>
           <LowStockAlerts />

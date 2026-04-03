@@ -37,14 +37,14 @@ const DataTablePagination = () => {
   };
 
   return (
-    <div className='flex items-center justify-between'>
+    <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
       <p className='text-muted-foreground text-sm'>
         {total} result{total !== 1 ? 's' : ''}
       </p>
 
-      <div className='flex items-center gap-6'>
+      <div className='flex flex-wrap items-center gap-x-6 gap-y-3'>
         <div className='flex items-center gap-2'>
-          <p className='text-sm'>Rows per page</p>
+          <p className='hidden text-sm sm:inline'>Rows per page</p>
           <Select
             value={String(state.limit)}
             onValueChange={handlePageSizeChange}

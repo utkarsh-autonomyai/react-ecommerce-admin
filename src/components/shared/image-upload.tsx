@@ -122,7 +122,7 @@ const ImageUpload = ({
           <img
             src={preview}
             alt='Upload preview'
-            className='h-40 w-40 rounded-md border object-cover'
+            className='h-32 w-32 rounded-md border object-cover sm:h-40 sm:w-40'
           />
           {!disabled && (
             <Button
@@ -148,7 +148,7 @@ const ImageUpload = ({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            'flex h-40 w-40 flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed transition-colors',
+            'flex h-32 w-32 flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed transition-colors sm:h-40 sm:w-40',
             isDragging
               ? 'border-primary bg-primary/5'
               : 'border-muted-foreground/25 hover:border-primary/50',

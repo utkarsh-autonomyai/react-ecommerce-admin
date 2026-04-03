@@ -29,7 +29,7 @@ export const OrderDetail = ({ order }: OrderDetailProps) => {
           <CardTitle>Order Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <dl className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+          <dl className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
             <div>
               <dt className='text-muted-foreground text-sm'>Order Number</dt>
               <dd className='font-mono font-medium'>{order.orderNumber}</dd>

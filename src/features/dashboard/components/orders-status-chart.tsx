@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 import { ordersControllerGetAllOrdersOptions } from '@/api/generated/@tanstack/react-query.gen';
 import {
@@ -116,25 +116,23 @@ const OrdersStatusChart = () => {
         <CardDescription>Current distribution</CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width='100%' height={300}>
-          <PieChart>
-            <Pie
-              data={chartData}
-              dataKey='value'
-              nameKey='name'
-              cx='50%'
-              cy='50%'
-              innerRadius={60}
-              outerRadius={100}
-              paddingAngle={2}
-            >
-              {chartData.map((entry) => (
-                <Cell key={entry.name} fill={entry.fill} />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value) => [Number(value), 'Orders']} />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className='h-62.5 sm:h-75'>
+          <ResponsiveContainer width='100%' height='100%'>
+            <PieChart>
+              <Pie
+                data={chartData}
+                dataKey='value'
+                nameKey='name'
+                cx='50%'
+                cy='50%'
+                innerRadius={60}
+                outerRadius={100}
+                paddingAngle={2}
+              />
+              <Tooltip formatter={(value) => [Number(value), 'Orders']} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
         <div className='mt-4 flex flex-wrap justify-center gap-4'>
           {chartData.map((entry) => (
             <div key={entry.name} className='flex items-center gap-2 text-sm'>

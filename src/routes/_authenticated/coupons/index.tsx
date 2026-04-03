@@ -105,7 +105,7 @@ function CouponsPage() {
           value={search.type ?? 'all'}
           onValueChange={(v) => handleFilterChange('type', v)}
         >
-          <SelectTrigger className='w-48'>
+          <SelectTrigger className='w-full sm:w-48'>
             <SelectValue placeholder='All types' />
           </SelectTrigger>
           <SelectContent>
@@ -122,7 +122,7 @@ function CouponsPage() {
           value={search.isActive ?? 'all'}
           onValueChange={(v) => handleFilterChange('isActive', v)}
         >
-          <SelectTrigger className='w-40'>
+          <SelectTrigger className='w-full sm:w-40'>
             <SelectValue placeholder='All statuses' />
           </SelectTrigger>
           <SelectContent>
@@ -136,7 +136,7 @@ function CouponsPage() {
           value={search.validNow ?? 'all'}
           onValueChange={(v) => handleFilterChange('validNow', v)}
         >
-          <SelectTrigger className='w-40'>
+          <SelectTrigger className='w-full sm:w-40'>
             <SelectValue placeholder='Any validity' />
           </SelectTrigger>
           <SelectContent>

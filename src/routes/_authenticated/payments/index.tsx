@@ -123,12 +123,12 @@ function PaymentsPage() {
         </Button>
       </PageHeader>
 
-      <div className='flex items-center gap-4'>
+      <div className='flex flex-wrap items-center gap-4'>
         <Select
           value={search.status ?? 'all'}
           onValueChange={handleStatusChange}
         >
-          <SelectTrigger className='w-56'>
+          <SelectTrigger className='w-full sm:w-56'>
             <SelectValue placeholder='All statuses' />
           </SelectTrigger>
           <SelectContent>
