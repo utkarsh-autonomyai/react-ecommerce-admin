@@ -1,8 +1,22 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { CheckCheck, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { notificationsControllerFindAllOptions } from '@/api/generated/@tanstack/react-query.gen';
+import {
+  notificationsControllerFindAllOptions,
+  notificationsControllerFindAllQueryKey,
+  notificationsControllerFindUserNotificationsQueryKey,
+  notificationsControllerGetUnreadCountQueryKey,
+  notificationsControllerMarkAllAsReadMutation,
+  notificationsControllerDeleteAllReadMutation,
+} from '@/api/generated/@tanstack/react-query.gen';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import type { NotificationDto } from '@/api/generated/types.gen';
 import {
@@ -11,6 +25,7 @@ import {
   DataTableSkeleton,
 } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/shared/page-header';
+import { Button } from '@/components/ui/button';
 import {
   NOTIFICATION_TYPE_MAP,
   NOTIFICATION_TYPES,
@@ -44,6 +59,39 @@ function NotificationsPage() {
   useDocumentTitle('Notifications');
   const search = Route.useSearch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const markAllAsReadMutation = useMutation({
+    ...notificationsControllerMarkAllAsReadMutation(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerGetUnreadCountQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerFindUserNotificationsQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerFindAllQueryKey(),
+      });
+      toast.success('All notifications marked as read');
+    },
+  });
+
+  const deleteAllReadMutation = useMutation({
+    ...notificationsControllerDeleteAllReadMutation(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerGetUnreadCountQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerFindUserNotificationsQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: notificationsControllerFindAllQueryKey(),
+      });
+      toast.success('All read notifications deleted');
+    },
+  });
 
   const { data, isLoading } = useQuery({
     ...notificationsControllerFindAllOptions({
@@ -91,7 +139,26 @@ function NotificationsPage() {
       <PageHeader
         title='Notifications'
         description='View all system notifications across users'
-      />
+      >
+        <Button
+          variant='outline'
+          size='sm'
+          disabled={markAllAsReadMutation.isPending}
+          onClick={() => markAllAsReadMutation.mutate({})}
+        >
+          <CheckCheck size={16} />
+          Mark all read
+        </Button>
+        <Button
+          variant='outline'
+          size='sm'
+          disabled={deleteAllReadMutation.isPending}
+          onClick={() => deleteAllReadMutation.mutate({})}
+        >
+          <Trash2 size={16} />
+          Delete all read
+        </Button>
+      </PageHeader>
 
       <div className='flex flex-wrap items-center gap-4'>
         <Select

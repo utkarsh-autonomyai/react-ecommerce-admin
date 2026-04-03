@@ -3319,6 +3319,68 @@
         "tags": ["Notifications"]
       }
     },
+    "/api/v1/notifications/{id}/unread": {
+      "patch": {
+        "operationId": "NotificationsController_markAsUnread",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Notification CUID",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification marked as unread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": { "$ref": "#/components/schemas/NotificationDto" },
+                    "timestamp": {
+                      "type": "string",
+                      "example": "2025-01-15T12:00:00.000Z"
+                    }
+                  },
+                  "required": ["success", "data", "timestamp"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — Missing or invalid JWT",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests — Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          }
+        },
+        "security": [{ "access-token": [] }],
+        "summary": "Mark a notification as unread",
+        "tags": ["Notifications"]
+      }
+    },
     "/api/v1/notifications/read-all": {
       "patch": {
         "operationId": "NotificationsController_markAllAsRead",
@@ -3362,6 +3424,95 @@
         },
         "security": [{ "access-token": [] }],
         "summary": "Mark all notifications as read",
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/v1/notifications/read": {
+      "delete": {
+        "operationId": "NotificationsController_deleteAllRead",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Number of notifications deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": { "$ref": "#/components/schemas/CountResponseDto" },
+                    "timestamp": {
+                      "type": "string",
+                      "example": "2025-01-15T12:00:00.000Z"
+                    }
+                  },
+                  "required": ["success", "data", "timestamp"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized — Missing or invalid JWT",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests — Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          }
+        },
+        "security": [{ "access-token": [] }],
+        "summary": "Delete all read notifications",
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/v1/notifications/{id}": {
+      "delete": {
+        "operationId": "NotificationsController_deleteOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Notification CUID",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized — Missing or invalid JWT",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests — Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponseSchema" }
+              }
+            }
+          }
+        },
+        "security": [{ "access-token": [] }],
+        "summary": "Delete a notification",
         "tags": ["Notifications"]
       }
     },
@@ -9567,6 +9718,11 @@
             "type": "string",
             "example": "2025-01-15T12:00:00.000Z"
           },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-15T12:00:00.000Z"
+          },
           "category": { "$ref": "#/components/schemas/ProductCategoryDto" },
           "images": {
             "description": "First image only in list view",
@@ -9583,6 +9739,7 @@
           "isActive",
           "isFeatured",
           "createdAt",
+          "updatedAt",
           "category",
           "images"
         ]
@@ -9611,6 +9768,11 @@
             "type": "string",
             "example": "2025-01-15T12:00:00.000Z"
           },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-15T12:00:00.000Z"
+          },
           "category": { "$ref": "#/components/schemas/ProductCategoryDto" },
           "images": {
             "description": "All product images",
@@ -9622,12 +9784,7 @@
             "example": "High-quality wireless headphones with noise cancellation"
           },
           "sku": { "type": "object", "example": "WH-1000XM5" },
-          "categoryId": { "type": "string", "example": "clxyz789def012" },
-          "updatedAt": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2025-01-15T12:00:00.000Z"
-          }
+          "categoryId": { "type": "string", "example": "clxyz789def012" }
         },
         "required": [
           "id",
@@ -9638,10 +9795,10 @@
           "isActive",
           "isFeatured",
           "createdAt",
+          "updatedAt",
           "category",
           "images",
-          "categoryId",
-          "updatedAt"
+          "categoryId"
         ]
       },
       "CreateProductDto": {

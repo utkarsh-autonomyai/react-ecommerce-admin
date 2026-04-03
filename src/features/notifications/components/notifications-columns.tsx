@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { NOTIFICATION_TYPE_MAP } from '@/components/shared/status-maps';
 import { Badge } from '@/components/ui/badge';
+import { NotificationsActionsCell } from './notifications-actions-cell';
 
 export const columns: ColumnDef<NotificationDto, unknown>[] = [
   {
@@ -55,5 +56,9 @@ export const columns: ColumnDef<NotificationDto, unknown>[] = [
     ),
     cell: ({ getValue }) =>
       format(new Date(getValue() as string), 'MMM d, yyyy HH:mm'),
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <NotificationsActionsCell notification={row.original} />,
   },
 ];
